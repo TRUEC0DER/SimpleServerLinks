@@ -1,0 +1,16 @@
+name: SimpleServerLinks
+version: '${version}'
+main: me.truec0der.simpleserverlinks.SimpleServerLinksPlugin
+api-version: '1.21'
+load: STARTUP
+authors: [ TRUEC0DER ]
+website: https://github.com/TRUEC0DER
+commands:
+  simpleserverlinks:
+    description: "Customize server links"
+    usage: /simpleserverlinks
+    aliases: [ serverlinks, simplesl, ssl ]
+permissions:
+  simpleserverlinks.commands.reload:
+    description: Reload plugin config
+    default: op

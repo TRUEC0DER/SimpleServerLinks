@@ -1,0 +1,47 @@
+allow-third-party: false # Whether to allow links from third-party plugins to be sent to the player
+send-type-links-first: true # If enabled, the type links will be at the beginning of the list of links
+status:
+  links:
+    default: true # Is default links enabled
+    type: true # Is type links enabled
+    nickname: true # Is nickname links enabled
+links:
+  # Links displayed if unique player links are not configured in the plugin config
+  default:
+    - name: <#b357ff><bold>Discord Server
+      url: https://t.me/occidereme
+    - name: <#363636><bold>GitHub
+      url: https://github.com/TRUEC0DER
+    - name: <#6b66ff><bold>Telegram
+      url: https://t.me/occidereme
+  # Default Minecraft link types (https://hub.spigotmc.org/javadocs/spigot/org/bukkit/ServerLinks.Type.html#enum-constant-summary)
+  # The text displayed depends on the player's localization
+  type:
+    - type: ANNOUNCEMENTS
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: COMMUNITY
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: COMMUNITY_GUIDELINES
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: FEEDBACK
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: FORUMS
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: NEWS
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: REPORT_BUG # May appear on disconnect/crash screens
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: STATUS
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: SUPPORT
+      url: https://discord.gg/ZEkU4R9ZYY
+    - type: WEBSITE
+      url: https://discord.gg/ZEkU4R9ZYY
+  # Links that will be displayed individually to the player
+  nickname:
+    - TRUEC0DER:
+        - name: <#24ff7f><bold>Modrinth
+          url: https://modrinth.com/user/TRUEC0DER
+    - FALSEC0DER:
+        - name: <#ef9127><bold>SpigotMC
+          url: https://www.spigotmc.org/members/truec0der.860451/

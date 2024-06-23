@@ -1,0 +1,4 @@
+not-perms: <#ff9f5e>| <red>You don't have permissions to use this command # When player don't have perms to use plugin commands
+need-correct-args: <#ff9f5e>| <red>Need more or correct args to use this command # When need more or correct args
+reload:
+  info: <#ff9f5e>| <green>Plugin reloaded!
