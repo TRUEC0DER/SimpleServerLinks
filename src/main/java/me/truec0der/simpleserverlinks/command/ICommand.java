@@ -1,5 +1,6 @@
 package me.truec0der.simpleserverlinks.command;
 
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.command.CommandSender;
 
 public interface ICommand {
@@ -13,5 +14,5 @@ public interface ICommand {
 
     boolean isConsoleCan();
 
-    boolean execute(CommandSender sender, String[] args);
+    boolean execute(CommandSender sender, Audience audience, String[] args);
 }

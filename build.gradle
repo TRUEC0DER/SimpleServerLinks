@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.truec0der'
-version = '1.0.0'
+version = '1.1.0'
 
 repositories {
     mavenCentral()
@@ -23,6 +23,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
     compileOnly "org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT"
+    implementation "net.kyori:adventure-platform-bukkit:4.3.3"
+    implementation "net.kyori:adventure-text-minimessage:4.17.0"
     implementation "org.bstats:bstats-bukkit:3.0.2"
 }
 

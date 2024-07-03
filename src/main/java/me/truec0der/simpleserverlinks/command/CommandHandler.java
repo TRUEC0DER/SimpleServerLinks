@@ -4,7 +4,9 @@ import me.truec0der.simpleserverlinks.command.subcommand.CommandReload;
 import me.truec0der.simpleserverlinks.config.configs.LangConfig;
 import me.truec0der.simpleserverlinks.config.configs.MainConfig;
 import me.truec0der.simpleserverlinks.interfaces.service.plugin.PluginReloadService;
-import me.truec0der.simpleserverlinks.util.TextFormatUtil;
+import me.truec0der.simpleserverlinks.util.MessageUtil;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,12 +21,14 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CommandHandler implements CommandExecutor, TabCompleter {
+    private final BukkitAudiences adventure;
     private final PluginReloadService pluginReloadService;
     private final MainConfig mainConfig;
     private final LangConfig langConfig;
     private final CommandManager commandManager;
 
-    public CommandHandler(PluginReloadService pluginReloadService, MainConfig mainConfig, LangConfig langConfig) {
+    public CommandHandler(BukkitAudiences adventure, PluginReloadService pluginReloadService, MainConfig mainConfig, LangConfig langConfig) {
+        this.adventure = adventure;
         this.pluginReloadService = pluginReloadService;
 
         this.mainConfig = mainConfig;
@@ -37,26 +41,27 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        Audience audience = adventure.sender(sender);
         String[] slicedArgs = args.length > 0 ? Arrays.copyOfRange(args, 1, args.length) : new String[0];
 
         Optional<ICommand> emptyCommand = commandManager.getCommands().stream().filter(cmd -> cmd.getName().isEmpty()).findFirst();
 
         if (args.length == 0) {
             if (!emptyCommand.isPresent()) {
-                sender.sendMessage(TextFormatUtil.format(langConfig.getNeedCorrectArgs()));
+                audience.sendMessage(MessageUtil.create(langConfig.getNeedCorrectArgs()));
                 return true;
             }
 
             if (!(sender instanceof Player) && !emptyCommand.get().isConsoleCan()) {
-                sender.sendMessage(TextFormatUtil.format(langConfig.getOnlyPlayer()));
+                audience.sendMessage(MessageUtil.create(langConfig.getOnlyPlayer()));
                 return true;
             }
 
             if (!sender.hasPermission(emptyCommand.get().getPermission())) {
-                sender.sendMessage(TextFormatUtil.format(langConfig.getNotPerms()));
+                audience.sendMessage(MessageUtil.create(langConfig.getNotPerms()));
                 return true;
             }
-            return emptyCommand.map(cmd -> executeCommand(cmd, sender, slicedArgs)).get();
+            return emptyCommand.map(cmd -> executeCommand(cmd, sender, audience, slicedArgs)).get();
         }
 
         List<ICommand> foundCommands = commandManager.findCommandsByName(args[0]);
@@ -65,26 +70,26 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
             for (ICommand commandObject : foundCommands) {
                 if (Pattern.matches(commandObject.getRegex(), String.join(" ", slicedArgs))) {
                     if (!sender.hasPermission(commandObject.getPermission())) {
-                        sender.sendMessage(TextFormatUtil.format(langConfig.getNotPerms()));
+                        audience.sendMessage(MessageUtil.create(langConfig.getNotPerms()));
                         return true;
                     }
-                    return executeCommand(commandObject, sender, slicedArgs);
+                    return executeCommand(commandObject, sender, audience, slicedArgs);
                 }
             }
-            sender.sendMessage(TextFormatUtil.format(langConfig.getNeedCorrectArgs()));
+            audience.sendMessage(MessageUtil.create(langConfig.getNeedCorrectArgs()));
             return true;
         }
 
-        sender.sendMessage(TextFormatUtil.format(langConfig.getNeedCorrectArgs()));
+        audience.sendMessage(MessageUtil.create(langConfig.getNeedCorrectArgs()));
         return true;
     }
 
-    private boolean executeCommand(ICommand command, CommandSender sender, String[] args) {
-        return command.execute(sender, args);
+    private boolean executeCommand(ICommand command, CommandSender sender, Audience audience, String[] args) {
+        return command.execute(sender, audience, args);
     }
 
     private void initCommands() {
-        commandManager.addCommand(new CommandReload(langConfig, pluginReloadService));;
+        commandManager.addCommand(new CommandReload(langConfig, pluginReloadService));
     }
 
     @Override

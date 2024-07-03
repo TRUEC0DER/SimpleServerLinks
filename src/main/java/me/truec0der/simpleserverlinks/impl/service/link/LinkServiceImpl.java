@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import me.truec0der.simpleserverlinks.config.configs.MainConfig;
 import me.truec0der.simpleserverlinks.interfaces.service.link.LinkService;
-import me.truec0der.simpleserverlinks.util.TextFormatUtil;
+import me.truec0der.simpleserverlinks.util.MessageUtil;
 import org.bukkit.ServerLinks;
 import org.bukkit.entity.Player;
 
@@ -54,7 +54,7 @@ public class LinkServiceImpl implements LinkService {
             String name = (String) linkMap.get("name");
             String url = (String) linkMap.get("url");
             try {
-                serverLinks.addLink(TextFormatUtil.format(name), new URI(url));
+                serverLinks.addLink(MessageUtil.serialize(name), new URI(url));
             } catch (URISyntaxException ignored) {
             }
         });
@@ -80,7 +80,7 @@ public class LinkServiceImpl implements LinkService {
                 String name = (String) linkMap.get("name");
                 String url = (String) linkMap.get("url");
                 try {
-                    serverLinks.addLink(TextFormatUtil.format(name), new URI(url));
+                    serverLinks.addLink(MessageUtil.serialize(name), new URI(url));
                 } catch (URISyntaxException ignored) {
                 }
             });

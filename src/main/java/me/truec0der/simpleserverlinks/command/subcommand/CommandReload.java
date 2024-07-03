@@ -3,7 +3,8 @@ package me.truec0der.simpleserverlinks.command.subcommand;
 import me.truec0der.simpleserverlinks.command.ICommand;
 import me.truec0der.simpleserverlinks.config.configs.LangConfig;
 import me.truec0der.simpleserverlinks.interfaces.service.plugin.PluginReloadService;
-import me.truec0der.simpleserverlinks.util.TextFormatUtil;
+import me.truec0der.simpleserverlinks.util.MessageUtil;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.command.CommandSender;
 
 public class CommandReload implements ICommand {
@@ -40,9 +41,9 @@ public class CommandReload implements ICommand {
         return true;
     }
 
-    public boolean execute(CommandSender sender, String[] args) {
+    public boolean execute(CommandSender sender, Audience audience, String[] args) {
         pluginReloadService.reload();
-        sender.sendMessage(TextFormatUtil.format(langConfig.getReloadInfo()));
+        audience.sendMessage(MessageUtil.create(langConfig.getReloadInfo()));
         return true;
     }
 }
