@@ -12,3 +12,7 @@
 - Very customizable
 
 [Discord](https://discord.gg/ZEkU4R9ZYY)
+
+## Plugin demonstration
+
+![Plugin demonstration](https://cdn.modrinth.com/data/TCXLTc7w/images/9c022e43c8c97bed008e58156152858993cde9b4.png)
