@@ -6,8 +6,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 @Getter
 public class LangConfig extends ConfigHolder {
